@@ -55,20 +55,36 @@ public class HelloWorldEx {
            
            
            Document doc = new Document();
-           doc.add(
-        		   new TextField("titolo", "Articolo Web Numero 1", Field.Store.YES)
-        		   );
-
-           // add document to index
+           doc.add(new TextField("titolo", "Articolo Web Numero 1", Field.Store.YES));
            doc.add(new TextField("introduzione", "questa è l'introduzione del mio documento", Field.Store.YES));
-           writer.addDocument(doc);
            doc.add(new TextField("contenuto", "questo è il contenuto del mio documento", Field.Store.NO));
-           writer.addDocument(doc);
            doc.add(new TextField("commenti", "questo è un commento di un utente di esempio", Field.Store.NO));
            writer.addDocument(doc);
-           doc.add(new TextField("t1", "questo è il test 1", Field.Store.NO));
+
+           doc.add(new TextField("titolo", "Articolo Web Numero 2", Field.Store.YES));
+           doc.add(new TextField("introduzione", "questa è l'introduzione del tuo documento", Field.Store.YES));
+           doc.add(new TextField("contenuto", "questo è il contenuto del tuo documento", Field.Store.NO));
+           doc.add(new TextField("commenti", "questo è un altro commento di un utente di esempio", Field.Store.NO));
            writer.addDocument(doc);
-           doc.add(new TextField("t2", "questo è il test 2", Field.Store.NO));
+
+           doc.add(new TextField("titolo", "Articolo Web Numero 3", Field.Store.YES));
+           doc.add(new TextField("introduzione", "questa è l'introduzione del suo documento", Field.Store.YES));
+           doc.add(new TextField("contenuto", "questo è il contenuto del suo documento", Field.Store.NO));
+           doc.add(new TextField("commenti", "questo è un altro ancora commento di un utente di esempio", Field.Store.NO));
+           writer.addDocument(doc);
+
+
+           doc.add(new TextField("titolo", "Articolo Web Numero 4", Field.Store.YES));
+           doc.add(new TextField("introduzione", "questa è l'introduzione del nostro documento", Field.Store.YES));
+           doc.add(new TextField("contenuto", "questo è il contenuto del nostro documento", Field.Store.NO));
+           doc.add(new TextField("commenti", "questo è un commento di due utenti di esempio", Field.Store.NO));
+           writer.addDocument(doc);
+
+
+           doc.add(new TextField("titolo", "Articolo Web Numero 5", Field.Store.YES));
+           doc.add(new TextField("introduzione", "questa è l'introduzione del vostro documento", Field.Store.YES));
+           doc.add(new TextField("contenuto", "questo è il contenuto del vostro documento", Field.Store.NO));
+           doc.add(new TextField("commenti", "questo è un commento di un utente di esempio, forse", Field.Store.NO));
            writer.addDocument(doc);
 
            //close IndexWriter
@@ -85,10 +101,10 @@ public class HelloWorldEx {
            IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(fsdir));
 
            //Create the query parser with the default field and analyzer
-           QueryParser qp = new QueryParser("contenuto", new StandardAnalyzer());
+           QueryParser qp = new QueryParser("commenti", new StandardAnalyzer());
            
            //Parse the query
-           Query q = qp.parse("questo");
+           Query q = qp.parse("ancora");
            
            //Search
            TopDocs topdocs = searcher.search(q, 10);
