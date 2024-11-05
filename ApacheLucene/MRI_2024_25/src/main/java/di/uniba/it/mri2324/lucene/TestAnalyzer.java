@@ -5,12 +5,6 @@
  */
 package di.uniba.it.mri2324.lucene;
 
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
@@ -18,14 +12,19 @@ import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author marco
  */
 public class TestAnalyzer {
 
     /**
-     *
      * @param reader
      * @param analyzer
      * @return
@@ -36,8 +35,9 @@ public class TestAnalyzer {
         TokenStream tokenStream = analyzer.tokenStream("text", reader);
         tokenStream.reset();
         CharTermAttribute cattr = tokenStream.addAttribute(CharTermAttribute.class);
+        String token;
         while (tokenStream.incrementToken()) {
-            String token = cattr.toString();
+            token = cattr.toString();
             tokens.add(token);
         }
         tokenStream.end();
@@ -51,9 +51,8 @@ public class TestAnalyzer {
     public static void main(String[] args) throws IOException {
         System.out.println(getTokens(new StringReader("the full-text indexing and search API: lucene.apache.org"), new WhitespaceAnalyzer()));
         System.out.println(getTokens(new StringReader("the full-text indexing and search API: lucene.apache.org"), new StandardAnalyzer()));
-        System.out.println(getTokens(new StringReader("the full-text indexing and search API: lucene.apache.org"), new StandardAnalyzer(new FileReader("resources/en_stopword"))));
+        System.out.println(getTokens(new StringReader("the full-text indexing and search API: lucene.apache.org"), new StandardAnalyzer(new FileReader("ApacheLucene/MRI_2024_25/resources/en_stopword"))));
         System.out.println(getTokens(new StringReader("the full-text indexing and search API: lucene.apache.org"), new EnglishAnalyzer()));
         System.out.println(getTokens(new StringReader("the full-text indexing and search API: lucene.apache.org"), new MyAnalyzer()));
     }
-
 }
