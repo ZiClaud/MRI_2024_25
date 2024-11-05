@@ -88,3 +88,9 @@ public class HelloWorld {
    }
 
 }
+
+/// Ex
+// Modify HelloWorld.java
+// Add five documents (define the fields and the content you prefer)
+// Check the number of documents in the index
+// Try some queries, and check if the number of documents matching the query is correct
