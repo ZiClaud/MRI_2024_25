@@ -44,7 +44,7 @@ public class IndexDocumentEx {
 
         try {
             // 1. Create a new index (indicate the directory as a parameter)
-            FSDirectory fsdir = FSDirectory.open(new File("./resources/AliceBook").toPath());
+            FSDirectory fsdir = FSDirectory.open(new File("./resources/alice").toPath());
 
             // 2. Create a new Analyzer and a new IndexWriter, with their configurations
             Analyzer analyzer = new StandardAnalyzer();
@@ -98,10 +98,10 @@ public class IndexDocumentEx {
                 if (currLine.isEmpty()) {
                     // 5. Store each paragraph (together with the other fields) as a new document.
                     Document doc = new Document();
-                    doc.add(new TextField("title", title, Field.Store.YES));
+                    doc.add(new TextField("id", title, Field.Store.NO));
                     doc.add(new TextField("author", author, Field.Store.YES));
-                    doc.add(new TextField("chapter_title", chapter_title, Field.Store.YES));
-                    doc.add(new TextField("text", text.toString(), Field.Store.YES));
+                    doc.add(new TextField("chapter", chapter_title, Field.Store.YES));
+                    doc.add(new TextField("chapter_text", text.toString(), Field.Store.YES));
 
                     writer.addDocument(doc);
 
@@ -126,7 +126,7 @@ public class IndexDocumentEx {
             IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(fsdir));
 
             //Create the query parser with the default field and analyzer
-            QueryParser qp = new QueryParser("text", new StandardAnalyzer());
+            QueryParser qp = new QueryParser("chapter_text", new StandardAnalyzer());
 
             //Parse the query
             Query q = qp.parse("Alice");
